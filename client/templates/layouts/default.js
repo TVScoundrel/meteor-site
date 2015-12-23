@@ -5,8 +5,6 @@ const authenticated = () => {
 const handleRedirect = () => {
   let currentRoute = FlowRouter.getRouteName();
   let authData = FlowRouter.current().route.group.options.authentication;
-  console.log(authData);
-  console.log(authenticated());
   if ( authData && authData.requireLoggedIn ^ authenticated() ) {
     FlowRouter.go( authData.redirectPath );
     return true;
