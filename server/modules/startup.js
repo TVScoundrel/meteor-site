@@ -8,6 +8,6 @@ var _setEnvironmentVariables = () => Modules.server.setEnvironmentVariables();
 
 var _setBrowserPolicies = () => {};
 
-var _generateAccounts = () => Modules.server.generateAccounts();
+var _generateAccounts = () => Modules.server.createUsers();
 
 Modules.server.startup = startup;

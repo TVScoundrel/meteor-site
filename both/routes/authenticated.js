@@ -1,11 +1,15 @@
 const authenticatedRoutes = FlowRouter.group({
-  name: 'authenticated'
+  name: 'authenticated',
+  authentication: {
+    requireLoggedIn: true,
+    redirectPath: '/login'
+  }
 });
 
-authenticatedRoutes.route( '/', {
-  name: 'index',
+authenticatedRoutes.route( '/users', {
+  name: 'users',
   action() {
-    BlazeLayout.render( 'default', { yield: 'index' } );
+    BlazeLayout.render( 'default', { yield: 'dashboard' } );
   }
 });
 

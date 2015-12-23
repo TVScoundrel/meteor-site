@@ -1,63 +1,35 @@
-let administrators = [
-  {
-    name: { first: 'Admin', last: 'McAdmin' },
-    email: 'admin@admin.com',
-    password: 'password'
-  }
-];
+"use strict";
 
-let generateAccounts = () => {
-  let fakeUserCount = 5,
-      usersExist    = _checkIfAccountsExist( administrators.length + fakeUserCount );
+function createUsers () {
+  var users
 
-  if ( !usersExist ) {
-    _createUsers( administrators );
-    _createUsers( _generateFakeUsers( fakeUserCount ) );
-  }
-};
+  if (Meteor.users.find().fetch().length === 0) {
 
-let _checkIfAccountsExist = ( count ) => {
-  let userCount = Meteor.users.find().count();
-  return userCount < count ? false : true;
-};
+    console.log('Creating users: ');
 
-let _createUsers = ( users ) => {
-  for ( let i = 0; i < users.length; i++ ) {
-    let user       = users[ i ],
-        userExists = _checkIfUserExists( user.email );
+    users = [
+      {name:"Admin User",email:"admin@admin.com",roles:['admin']}
+    ];
 
-    if ( !userExists ) {
-      _createUser( user );
-    }
-  }
-};
+    _.each(users, function (userData) {
+      var id
+      
+      console.log(userData);
 
-let _checkIfUserExists = ( email ) => {
-  return Meteor.users.findOne( { 'emails.address': email } );
-};
+      id = Accounts.createUser({
+        email: userData.email,
+        password: "D3aDL1ne!",
+        profile: { name: userData.name }
+      });
 
-let _createUser = ( user ) => {
-  Accounts.createUser({
-    email: user.email,
-    password: user.password,
-    profile: {
-      name: user.name
-    }
-  });
-};
+      // email verification
+      Meteor.users.update({_id: id},
+                          {$set:{'emails.0.verified': true}});
 
-let _generateFakeUsers = ( count ) => {
-  let users = [];
-
-  for ( let i = 0; i < count; i++ ) {
-    users.push({
-      name: { first: faker.name.firstName(), last: faker.name.lastName() },
-      email: faker.internet.email(),
-      password: 'password'
+      Roles.addUsersToRoles(id, userData.roles);
+    
     });
   }
+}
 
-  return users;
-};
-
-Modules.server.generateAccounts = generateAccounts;
+Modules.server.createUsers = createUsers;
