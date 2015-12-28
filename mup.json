@@ -16,7 +16,7 @@
 
   // Configure environment
   "env": {
-    "ROOT_URL": "http://localhost",
+    "ROOT_URL": "http://www.tomvanschoor.com",
     "PORT": 8080,
     "METEOR_ENV": "production"
   },
