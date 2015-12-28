@@ -8,7 +8,7 @@ function createUsers () {
     console.log('Creating users: ');
 
     users = [
-      {name:"Admin User",email:"admin@admin.com",roles:['admin']}
+      {name:"Admin User",email:"admin@admin.com",roles:['super-admin']}
     ];
 
     _.each(users, function (userData) {
