@@ -1,11 +1,3 @@
-let startup = () => {
-  Template.registerHelper('isAuthorized', () => {
-    var loggedInUser = Meteor.user();
-    let authData = FlowRouter.current().route.group.options.authentication;
-    if (authData.roles != null)
-      return Roles.userIsInRole(loggedInUser, authData.roles);
-    return true;
-  });
-};
+let startup = () => {};
 
 Modules.client.startup = startup;

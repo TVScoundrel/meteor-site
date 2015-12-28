@@ -10,7 +10,6 @@ const userAdminRoutes = FlowRouter.group({
 userAdminRoutes.route( '/user-admin', {
   name: 'user-admin',
   action() {
-    BlazeLayout.render( 'default', { yield: 'user-admin' } );
+    BlazeLayout.render( 'default', { yield: 'userAdmin' } );
   }
 });
-

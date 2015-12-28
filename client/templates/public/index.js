@@ -1,3 +1,3 @@
-Template.index.onCreated( () => {
+Template.index.onCreated(() => {
   //Template.instance().subscribe( 'template' );
 });

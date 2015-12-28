@@ -1,16 +1,27 @@
-let determineEmail = (user) => {
+let determineService = (user) => {
   var emailAddress = null;
-  if (user.emails != null) emailAddress = user.emails[0].address;
-  else if (user.services.facebook != null) emailAddress = user.services.facebook.email;
-  else if (user.services.github != null) emailAddress = user.services.github.email;
-  else if (user.services.google != null) emailAddress = user.services.google.email;
+  var origin = 'twitter';
+  if (user.emails != null) {
+    emailAddress = user.emails[0].address;
+    origin = 'local';
+  } else if (user.services.facebook != null) {
+    emailAddress = user.services.facebook.email;
+    origin = 'facebook';
+  } else if (user.services.github != null) {
+    emailAddress = user.services.github.email;
+    origin = 'github';
+  } else if (user.services.google != null) {
+    emailAddress = user.services.google.email;
+    origin = 'google';
+  }
   
-  return emailAddress;
+  return { emailAddress:emailAddress, origin:origin };
 }
 
 Accounts.onCreateUser((options, user) => {
+  var service = determineService(user);
   var userData = {
-    email: determineEmail(user),
+    email: service.emailAddress,
     name: options.profile ? options.profile.name : ""
   };
   
@@ -23,6 +34,7 @@ Accounts.onCreateUser((options, user) => {
   if (options.profile) {
     options.profile.email = userData.email;
     user.profile = options.profile;
+    user.origin = service.origin;
   }
   
   return user;
