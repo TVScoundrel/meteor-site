@@ -44,3 +44,5 @@ accounts-twitter
 service-configuration
 http
 email
+perak:codemirror
+deanius:promise

@@ -1,0 +1,22 @@
+<template name="editorBlogPosts">
+  {{> addNewBlogPostModal}}
+
+  <h4 class="page-header">Blog Posts</h4>
+
+  <a href="#" class="btn btn-success add-new-blog-post" data-toggle="modal" data-target="#new-blog-post-modal">Start a New Blog Post</a>
+
+  {{#each blogPosts}}
+    <hr>
+    {{> blogPostItem}}
+    <hr>
+  {{else}}
+    <hr>
+    <p class="alert alert-warning">No blog posts yet, friend.</p>
+  {{/each}}
+</template>
+
+<template name="blogPostItem">
+  <h3>
+    <a href={{pathForPost}}>{{title}}</a>
+  </h3>
+</template>

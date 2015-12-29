@@ -1,0 +1,14 @@
+<template name="editBlogPost">
+  <header class="editor-header">
+    <label for="blogPostTitle">Title</label>
+    <input type="text" name="blogPostTitle" value="{{blogPost.title}}">
+  </header>
+  <div class="editor-preview">
+    <div class="editor-wrap">
+      <textarea id="editor"></textarea>
+    </div>
+    <div class="preview-wrap">
+      <div id="preview"></div>
+    </div>
+  </div>
+</template>
