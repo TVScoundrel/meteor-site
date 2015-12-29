@@ -4,6 +4,7 @@
     <table class="table table-bordered">
       <thead>
         <tr>
+          <th>Name</th>
           <th>Email Address</th>
           <th>Origin</th>
           <th class="text-center">Role</th>
@@ -12,7 +13,8 @@
       <tbody>
         {{#each users}}
           <tr>
-            <td class="text-left text-middle">{{#if isCurrentUser _id}}<label class="label label-success">You!</label>{{/if}} {{profile.email}}</td>
+            <td class="text-left text-middle">{{#if isCurrentUser _id}}<label class="label label-success">You!</label>{{/if}} {{profile.name}}</td>
+            <td class="text-left text-middle">{{profile.email}}</td>
             <td class="text-left text-middle">{{origin}}</td>
             <td>
               <select {{disableIfAdmin _id}} name="userRole" class="form-control">
