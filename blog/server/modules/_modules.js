@@ -1,0 +1,1 @@
+Blog.modules.server = {};

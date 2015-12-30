@@ -17,8 +17,6 @@ Template.blogPostItem.helpers({
     var routeName = "editor-blog-post";
     var path = FlowRouter.path(routeName, params);
     
-    console.log("path");
-
     return path;
   }
 });

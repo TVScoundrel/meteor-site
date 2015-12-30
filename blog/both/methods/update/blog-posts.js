@@ -6,6 +6,11 @@ Meteor.methods({
       title: Match.Optional( String )
     });
     
+    changes.lastEditAt = new Date();
+    if (Meteor.isServer) {
+      changes.rendered = Blog.modules.server.renderMarkdown(changes.body);
+    }
+    
     var post = changes._id;
     delete changes._id;
 

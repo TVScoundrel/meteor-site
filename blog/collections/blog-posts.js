@@ -8,6 +8,10 @@ var blogPostFields = {
     type: String,
     optional: true
   },
+  rendered: {
+    type: String,
+    optional: true
+  },
   userId: {
     type: String,
     optional: true
