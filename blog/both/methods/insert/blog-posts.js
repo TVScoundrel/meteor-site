@@ -1,6 +1,9 @@
 Meteor.methods({
   insertBlogPost: function(blogPost) {
-
+    check(blogPost, {
+      title: String
+    });
+    
     var additionalParams = {
       body: " ",
       author: Meteor.user(),

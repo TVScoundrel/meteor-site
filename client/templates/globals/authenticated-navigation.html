@@ -1,7 +1,7 @@
 <template name="authenticatedNavigation">
   <ul class="nav navbar-nav">
     {{#if isAuthorizedFor 'user-admin'}}<li class="{{currentRoute 'user-admin'}}"><a href="{{pathFor 'user-admin'}}">User Admin</a></li>{{/if}}
-    <li class="{{currentRoute 'dashboard'}}"><a href="{{pathFor 'dashboard'}}">Dashboard</a></li>
+    {{#if isAuthorizedFor 'editor-blog-posts'}}<li class="{{currentRoute 'editor-blog-posts'}}"><a href="{{pathFor 'editor-blog-posts'}}">Blog Editor</a></li>{{/if}}
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <li class="dropdown">

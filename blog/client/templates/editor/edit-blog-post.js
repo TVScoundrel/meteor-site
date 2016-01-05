@@ -20,33 +20,43 @@ const initEditor = function(template) {
 };
 
 Template.editBlogPost.onCreated(function () {
+  var self = this;
+  self.autorun(function() {
     var _id = FlowRouter.getParam('_id');
-    Template.instance().subscribe('singlePost', _id);
+    if (_id != Session.get('blogPostID')) {
+      self.subscribe('singlePost', _id, function () {
+        var blogPost = BlogPosts.findOne();
+        Session.set('blogPostID', _id);
+        Session.set('blogPostTitle', blogPost.title);
+        Session.set('blogPostBody', blogPost.body);
+      });
+    }
+  });
 });
 
 Template.editBlogPost.onRendered(function () {
   this.docId = FlowRouter.getParam('_id');
-  
-  this.editor = CodeMirror.fromTextArea( this.find('#editor'), {
-    lineNumbers: true,
-    fixedGutter: true,
-    mode: 'markdown',
-    lineWrapping: true,
-    cursorHeight: 0.85
-  });
-  
-  initEditor(this);
 });
 
 Template.editBlogPost.helpers({
-  blogPost: function () {
-    return BlogPosts.findOne();
+  blogPostTitle: function () {
+    return Session.get('blogPostTitle');
+  },
+  editorOptions: function () {
+    return {
+      lineNumbers: true,
+      fixedGutter: true,
+      mode: 'markdown',
+      lineWrapping: true,
+      cursorHeight: 0.85,
+      theme: 'blackboard'
+    }
   }
 });
 
 Template.editBlogPost.events({
   'keyup .CodeMirror': function(event, template) {
-    var body = template.editor.getValue();
+    var body = template.find('#editor').value;
     if (body !== '') {
       Meteor.callPromise('convertMarkdown', body).then(function (html) {
         $('#preview').html(html);

@@ -49,12 +49,11 @@
   }
 }
 
-.editor-wrap,
-.preview-wrap {
+.editor-wrap {
   position: absolute;
   top: 128px;
   bottom: 0px;
-  width: 50%;
+  width: 100%;
   height: calc( 100% - 128px );
 }
 
@@ -79,31 +78,4 @@
 
 #editor {
   visibility: hidden;
-}
-
-.preview-wrap {
-  overflow: auto;
-  right: 0px;
-  background: @ps-bg;
-  padding: 20px;
-}
-
-#preview > *:last-child {
-  margin-bottom: 0px;
-}
-
-#preview {
-  > *:first-child {
-    margin-top: 0px;
-  }
-
-  > *:last-child {
-    margin-bottom: 0px;
-  }
-
-  img {
-    display: block;
-    height: auto;
-    max-width: 100%;
-  }
 }

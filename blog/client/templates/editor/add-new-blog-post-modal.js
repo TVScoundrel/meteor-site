@@ -17,7 +17,7 @@ Template.addNewBlogPostModal.onRendered(function () {
         if (error) {
           Bert.alert(error.reason, "danger");
         } else {
-          //FlowRouter.go("editor", { _id: response });
+          FlowRouter.go("editor-blog-post", { _id: response._id });
           $('#new-blog-post-modal').modal('hide');
           $('.modal-backdrop').remove();
         }

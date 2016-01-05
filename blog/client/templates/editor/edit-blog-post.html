@@ -1,14 +1,11 @@
 <template name="editBlogPost">
   <header class="editor-header">
     <label for="blogPostTitle">Title</label>
-    <input type="text" name="blogPostTitle" value="{{blogPost.title}}">
+    <input type="text" name="blogPostTitle" value="{{blogPostTitle}}">
   </header>
   <div class="editor-preview">
     <div class="editor-wrap">
-      <textarea id="editor"></textarea>
-    </div>
-    <div class="preview-wrap">
-      <div id="preview"></div>
+      {{> CodeMirror id="editor" name="editor" options=editorOptions reactiveVar="blogPostBody"}}
     </div>
   </div>
 </template>

@@ -14,5 +14,5 @@ Template.authenticatedNavigation.helpers({
       return Roles.userIsInRole(loggedInUser, authData.roles);
     return true;
   }
-  
+
 });
