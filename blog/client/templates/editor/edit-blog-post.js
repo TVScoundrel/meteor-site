@@ -19,21 +19,6 @@ const initEditor = function(template) {
   });
 };
 
-Template.editBlogPost.onCreated(function () {
-  var self = this;
-  self.autorun(function() {
-    var _id = FlowRouter.getParam('_id');
-    if (_id != Session.get('blogPostID')) {
-      self.subscribe('singlePost', _id, function () {
-        var blogPost = BlogPosts.findOne();
-        Session.set('blogPostID', _id);
-        Session.set('blogPostTitle', blogPost.title);
-        Session.set('blogPostBody', blogPost.body);
-      });
-    }
-  });
-});
-
 Template.editBlogPost.onRendered(function () {
   this.docId = FlowRouter.getParam('_id');
 });
