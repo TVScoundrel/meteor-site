@@ -53,7 +53,7 @@ Template.editBlogPost.events({
   },
   'keyup #blogPostTitle': function(event, template) {
     var title = event.target.value;
-    var body = template.editor.getValue();
+    var body = template.find('#editor').value;
     if (title !== '' && body !== '') {
       Meteor.callPromise('updateBlogPost', { _id: template.docId, body: body, title: title }).catch(function (error) {
         Bert.alert(error.reason, 'danger');
