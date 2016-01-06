@@ -1,23 +1,17 @@
-const initEditor = function(template) {
-  Tracker.autorun(function(computation) {
-    var blogPost = BlogPosts.findOne({}, { fields: { 'body': 1 } });
-    
-    if (blogPost && blogPost.body) {
-      
-      Meteor.call('convertMarkdown', blogPost.body, function(error, html) {
-        if (error) {
-          console.log(error.reason);
-        } else {
-          $('#preview').html(html);
-        }
+Template.editBlogPost.onCreated(function () {
+  var self = this;
+  self.autorun(function() {
+    var _id = FlowRouter.getParam('_id');
+    if (_id != Session.get('blogPostID')) {
+      self.subscribe('singlePost', _id, function () {
+        var blogPost = BlogPosts.findOne();
+        Session.set('blogPostID', _id);
+        Session.set('blogPostTitle', blogPost.title);
+        Session.set('blogPostBody', blogPost.body);
       });
-
-      template.editor.setValue(blogPost.body.trim());
-
-      computation.stop();
     }
   });
-};
+});
 
 Template.editBlogPost.onRendered(function () {
   this.docId = FlowRouter.getParam('_id');
