@@ -8,6 +8,8 @@ Template.editBlogPost.onCreated(function () {
         Session.set('blogPostID', _id);
         Session.set('blogPostTitle', blogPost.title);
         Session.set('blogPostBody', blogPost.body);
+        Session.set('blogPostTitleUnsaved', blogPost.titleUnsaved);
+        Session.set('blogPostBodyUnsaved', blogPost.bodyUnsaved);
       });
     }
   });
@@ -18,8 +20,8 @@ Template.editBlogPost.onRendered(function () {
 });
 
 Template.editBlogPost.helpers({
-  blogPostTitle: function () {
-    return Session.get('blogPostTitle');
+  blogPostTitleUnsaved: function () {
+    return Session.get('blogPostTitleUnsaved');
   },
   editorOptions: function () {
     return {
@@ -30,28 +32,49 @@ Template.editBlogPost.helpers({
       cursorHeight: 0.85,
       theme: 'blackboard'
     }
+  },
+  savedState: function () {
+    return (
+      Session.get('blogPostTitle') == Session.get('blogPostTitleUnsaved') &&
+      Session.get('blogPostBody') == Session.get('blogPostBodyUnsaved')
+    );
   }
 });
 
 Template.editBlogPost.events({
-  'keyup .CodeMirror': function(event, template) {
+  'keyup .CodeMirror': function (event, template) {
     var body = template.find('#editor').value;
     if (body !== '') {
-      Meteor.callPromise('convertMarkdown', body).then(function (html) {
-        $('#preview').html(html);
-        return Meteor.callPromise('updateBlogPost', { _id: template.docId, body: body });
-      }).catch( function (error) {
+      return Meteor.callPromise('draftBlogPost', { _id: template.docId, bodyUnsaved: body }).catch( function (error) {
         Bert.alert(error.reason, 'danger');
       });
     }
   },
-  'keyup #blogPostTitle': function(event, template) {
+  'keyup #blogPostTitle': function (event, template) {
     var title = event.target.value;
     var body = template.find('#editor').value;
     if (title !== '' && body !== '') {
-      Meteor.callPromise('updateBlogPost', { _id: template.docId, body: body, title: title }).catch(function (error) {
+      Meteor.callPromise('draftBlogPost', { _id: template.docId, bodyUnsaved: body, titleUnsaved: title }).catch(function (error) {
         Bert.alert(error.reason, 'danger');
       });
     }
+  },
+  'click #revertButton': function (event, template) {
+    Session.set('blogPostTitleUnsaved', Session.get('blogPostTitle'));
+    Session.set('blogPostBodyUnsaved', Session.get('blogPostBody'));
+    Meteor.callPromise('revertBlogPost', { _id: template.docId, body: Session.get('blogPostBody'), title: Session.get('blogPostTitle') }).catch(function (error) {
+      Bert.alert(error.reason, 'danger');
+    });
+  },
+  'click #saveButton': function (event, template) {
+    Session.set('blogPostTitle', Session.get('blogPostTitleUnsaved'));
+    Session.set('blogPostBody', Session.get('blogPostBodyUnsaved'));
+    Meteor.callPromise('saveBlogPost', { _id: template.docId, bodyUnsaved: Session.get('blogPostBodyUnsaved'), titleUnsaved: Session.get('blogPostTitleUnsaved') }).catch(function (error) {
+      Bert.alert(error.reason, 'danger');
+    }); 
+  },
+  'click #previewButton': function (event) {
+    event.preventDefault();
+    window.open(FlowRouter.path('blog-preview', { _id: FlowRouter.getParam('_id') }), 'preview');
   }
 });

@@ -5,7 +5,9 @@ Meteor.methods({
     });
     
     var additionalParams = {
+      titleUnsaved: blogPost.title,
       body: " ",
+      bodyUnsaved: " ",
       author: Meteor.user(),
       createdAt: new Date()
     }

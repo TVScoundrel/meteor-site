@@ -1,11 +1,16 @@
 <template name="editBlogPost">
   <header class="editor-header">
     <label for="blogPostTitle">Title</label>
-    <input type="text" id="blogPostTitle" name="blogPostTitle" value="{{blogPostTitle}}">
+    <div class="input-group">
+      <input type="text" id="blogPostTitle" name="blogPostTitle" value="{{blogPostTitleUnsaved}}">{{unsavedState}}
+      <button id="saveButton" disabled="{{savedState}}"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+      <button id="revertButton" disabled="{{savedState}}"><span class="glyphicon glyphicon-repeat"></span> Revert</button>
+      <button id="previewButton"><span class="glyphicon glyphicon-eye-open"></span> Preview</button>
+    </div>
   </header>
   <div class="editor-preview">
     <div class="editor-wrap">
-      {{> CodeMirror id="editor" name="editor" options=editorOptions reactiveVar="blogPostBody"}}
+      {{> CodeMirror id="editor" name="editor" options=editorOptions reactiveVar="blogPostBodyUnsaved"}}
     </div>
   </div>
 </template>

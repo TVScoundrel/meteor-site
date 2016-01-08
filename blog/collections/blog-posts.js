@@ -4,11 +4,22 @@ var blogPostFields = {
   title: {
     type: String
   },
+  titleUnsaved: {
+    type: String
+  },
   body: {
     type: String,
     optional: true
   },
+  bodyUnsaved: {
+    type: String,
+    optional:true
+  },
   rendered: {
+    type: String,
+    optional: true
+  },
+  renderedUnsaved: {
     type: String,
     optional: true
   },

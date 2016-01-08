@@ -30,3 +30,10 @@ blogEditorRoutes.route('/editor-blog-posts/:_id', {
     BlazeLayout.render('default', { yield: 'editBlogPost' });
   }
 });
+
+blogEditorRoutes.route('/blog-preview/:_id', {
+  name: 'blog-preview',
+  action() {
+    BlazeLayout.render('default', { yield: 'blogPostPreview' });
+  }
+});

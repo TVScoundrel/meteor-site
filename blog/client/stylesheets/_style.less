@@ -26,15 +26,27 @@
     left: 15px;
     text-transform: uppercase;
     font-size: 12px;
-    color: @ps-bg;
   }
 
-  input {
+  .input-group {
     display: block;
     width: 100%;
     border: none;
     padding: 40px 15px 15px;
     color: @ps-bg;
+  }
+  
+  input {
+    width: 60%;
+  }
+  
+  button {
+    width: 10%;
+    margin-right: 2px;
+  }
+  
+  button:disabled {
+    background-color: @gray;
   }
 
   input:focus {
