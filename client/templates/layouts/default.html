@@ -1,13 +1,23 @@
 <template name="default">
-	{{>bertAlert}}
-	{{>header}}
-	<div class="container">
-		{{#if loggingIn}}
-			{{> loading}}
-		{{else}}
-			{{#unless redirectRequired}}
-				{{> Template.dynamic template=yield}}
-			{{/unless}}
-		{{/if}}
-	</div>
+  {{>bertAlert}}
+  {{>header}}
+  <div class="container">
+    {{#if loggingIn}}
+      {{> loading}}
+    {{else}}
+      {{#if loggedIn}}
+        {{#unless authenticatedRedirectRequired}}
+          {{> Template.dynamic template=yield}}
+        {{else}}
+          {{> loading}}
+        {{/unless}}
+      {{else}}
+        {{#unless publicRedirectRequired}}
+          {{> Template.dynamic template=yield}}
+        {{else}}
+          {{> loading}}
+        {{/unless}}
+      {{/if}}
+    {{/if}}
+  </div>
 </template>

@@ -9,7 +9,6 @@ jquery
 check
 audit-argument-checks
 themeteorchef:jquery-validation
-browser-policy
 meteorhacks:npm
 
 
@@ -47,3 +46,8 @@ email
 perak:codemirror
 deanius:promise
 spiderable
+okgrow:analytics
+browser-policy
+meteorhacks:kadira
+meteorhacks:kadira-profiler
+kadira:debug
