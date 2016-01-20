@@ -1,5 +1,17 @@
 BlogPosts = new Mongo.Collection('blogPosts');
 
+BlogPosts.allow({
+  insert: () => false,
+  update: () => false,
+  remove: () => false
+});
+
+BlogPosts.deny({
+  insert: () => true,
+  update: () => true,
+  remove: () => true
+});
+
 var blogPostFields = {
   title: {
     type: String
