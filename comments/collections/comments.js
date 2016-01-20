@@ -12,20 +12,6 @@ Comments.deny({
   remove: () => true
 });
 
-{
-    _id: ObjectId(...),
-    discussion_id: ObjectId(...),
-    parent_id: ObjectId(...),
-    slug: '34db/8bda'
-    full_slug: '2012.02.08.12.21.08:34db/2012.02.09.22.19.16:8bda',
-    posted: ISODateTime(...),
-    author: {
-              id: ObjectId(...),
-              name: 'Rick'
-             },
-    text: 'This is so bogus ... '
-}
-
 var commentFields = {
   discussion_id: {
     type: String,
