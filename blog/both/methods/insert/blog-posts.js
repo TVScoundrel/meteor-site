@@ -1,5 +1,5 @@
 Meteor.methods({
-  insertBlogPost: function(blogPost) {
+  insertBlogPost: function (blogPost) {
     check(blogPost, {
       title: String
     });

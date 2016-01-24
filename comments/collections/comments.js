@@ -19,6 +19,7 @@ var commentFields = {
   },
   parent_id: {
     type: String,
+    regEx: SimpleSchema.RegEx.Id,
     optional: true,
     index: 1
   },
@@ -36,6 +37,7 @@ var commentFields = {
   },
   user_id: {
     type: String,
+    regEx: SimpleSchema.RegEx.Id,
     index: 1
   },
   markdown: {
